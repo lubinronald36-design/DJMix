@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ronald DJ - girl.mp3 double</title>
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: Arial;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 8px;
+      font-size: 18px;
+      border-radius: 10px;
+      background: #111;
+      color: #0f0;
+      border: 1px solid #0f0;
+    }
+    button:hover {
+      background: #0f0;
+      color: #000;
+    }
+    .progress {
+      width: 90%;
+      height: 10px;
+      background: #222;
+      border: 1px solid #0f0;
+      margin: 10px 0;
+      position: relative;
+    }
+    .marker {
+      width: 10px;
+      height: 10px;
+      background: red;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Ronald DJ – Double girl.mp3</h1>
+<p>Two copies of girl.mp3 so you can match up your mix.</p>
+
+<!-- AUDIO -->
+<audio id="girlA" src="girl.mp3"></audio>
+<audio id="girlB" src="girl.mp3"></audio>
+
+<!-- BUTTONS -->
+<h2>Track A</h2>
+<button onclick="playTrack('girlA')">Play A</button>
+<div class="progress"><div class="marker" id="markerA"></div></div>
+
+<h2>Track B</h2>
+<button onclick="playTrack('girlB')">Play B</button>
+<div class="progress"><div class="marker" id="markerB"></div></div>
+
+<script>
+function playTrack(id) {
+  const t = document.getElementById(id);
+  t.currentTime = 0;
+  t.play();
+}
+
+// MOVE THE MARKER AS THE SONG PLAYS
+setInterval(() => {
+  updateMarker('girlA', 'markerA');
+  updateMarker('girlB', 'markerB');
+}, 50);
+
+function updateMarker(audioId, markerId) {
+  const audio = document.getElementById(audioId);
+  const marker = document.getElementById(markerId);
+  const barWidth = 90; // matches CSS percent width
+  
+  if (audio.duration > 0) {
+    const pct = (audio.currentTime / audio.duration) * barWidth;
+    marker.style.left = pct + "%";
+  }
+}
+</script>
+
+</body>
+</html>
